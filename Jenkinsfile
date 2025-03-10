@@ -11,7 +11,7 @@ pipeline {
                     echo logMessage
                     rabbitMQPublisher(
                         routingKey: "${RABBITMQ_QUEUE}",
-                        exchange: ""
+                        exchange: "logs_exchange"
                     )
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
                     echo logMessage
                     rabbitMQPublisher(
                         routingKey: "${RABBITMQ_QUEUE}",
-                        exchange: ""
+                        exchange: "logs_exchange"
                     )
                 }
             }
