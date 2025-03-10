@@ -13,25 +13,30 @@ pipeline {
                 script {
                     def logMessage = "Build stage started at: ${new Date()}"
                     echo logMessage
-                    publishRabbitMQ message: logMessage, routingKey: "${RABBITMQ_QUEUE}", exchange: ""
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                script {
-                    def logMessage = "Running security tests..."
-                    echo logMessage
-                    publishRabbitMQ message: logMessage, routingKey: "${RABBITMQ_QUEUE}", exchange: ""
+                    rabbitMQPublisher(
+                        message: logMessage,
+                        routingKey: "${RABBITMQ_QUEUE}",
+                        exchange: "",
+                        host: "${RABBITMQ_HOST}",
+                        username: "${RABBITMQ_USERNAME}",
+                        password: "${RABBITMQ_PASSWORD}"
+                    )
                 }
             }
         }
         stage('Deploy') {
             steps {
                 script {
-                    def logMessage = "Deploying application to production..."
+                    def logMessage = "Deploying application..."
                     echo logMessage
-                    publishRabbitMQ message: logMessage, routingKey: "${RABBITMQ_QUEUE}", exchange: ""
+                    rabbitMQPublisher(
+                        message: logMessage,
+                        routingKey: "${RABBITMQ_QUEUE}",
+                        exchange: "",
+                        host: "${RABBITMQ_HOST}",
+                        username: "${RABBITMQ_USERNAME}",
+                        password: "${RABBITMQ_PASSWORD}"
+                    )
                 }
             }
         }
