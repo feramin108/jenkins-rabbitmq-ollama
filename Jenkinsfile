@@ -7,7 +7,7 @@ pipeline {
         RABBITMQ_PASSWORD = "Jre-8u251npp@kazan"
         RABBITMQ_VHOST = "jenkins_vhost"
     }
-    stages {
+     stages {
         stage('Build') {
             steps {
                 script {
